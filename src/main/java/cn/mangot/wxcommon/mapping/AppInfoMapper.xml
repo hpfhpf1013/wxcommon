@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mangot.wxcommon.IDao.AppInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.mangot.wxcommon.entity.AppInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="appid" jdbcType="VARCHAR" property="appid" />
+    <result column="secret" jdbcType="VARCHAR" property="secret" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, appid, secret
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByappId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from app_info
+    where appid = #{appid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.mangot.wxcommon.entity.AppInfo">
+    insert into app_info (id, appid, secret
+      )
+    values (#{id,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR}, #{secret,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.mangot.wxcommon.entity.AppInfo">
+    insert into app_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="appid != null">
+        appid,
+      </if>
+      <if test="secret != null">
+        secret,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        #{secret,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.mangot.wxcommon.entity.AppInfo">
+    update app_info
+    <set>
+      <if test="appid != null">
+        appid = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="secret != null">
+        secret = #{secret,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.mangot.wxcommon.entity.AppInfo">
+    update app_info
+    set appid = #{appid,jdbcType=VARCHAR},
+      secret = #{secret,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
